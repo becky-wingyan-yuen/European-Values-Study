@@ -7,7 +7,7 @@
 - [Description](#description)
 - [Repo Contents](#repo-contents)
 - [Main findings](#main-findings)
-- [Demo](#demo)
+- [Session Info](#session-info)
 
 
 
@@ -26,5 +26,8 @@ In this project we aim to investigate the trend of COVID-19 cases over the past 
 
 
 
-### Demo
+### Session Info
+
+
+
 
