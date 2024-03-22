@@ -18,9 +18,7 @@ In this project we aim to investigate the trend of COVID-19 cases over the past 
 
 ### Repo Contents 
 
-- [code](./code): `R` code to reproduce the graphs.
 - [data](./data): downloaded and processed data.
-- [figures](./figures): output graphs.
 
 
 ### Main findings 
