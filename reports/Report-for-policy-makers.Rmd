@@ -1,0 +1,73 @@
+---
+title: "Report for policy makers"
+author: "Becky Yuen"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    keep_md: true
+    keep_tex: true
+---
+
+## Introduction
+
+This is the overall report for the analysis on the [European Value Study (EVS) from 2017](https://search.gesis.org/research_data/ZA7500) which is a survey research program on how Europeans think about family, work, religion, politics, and society. We are mainly interested in Enropeans thoughts on two questions:
+
+1. When a mother works for pay, do Europeans think the children suffer?
+2. When jobs are scarce, do Europeans think employers should give priority to local people over immigrants?
+
+```{r read in data, echo=FALSE, message=FALSE}
+library(haven)
+EVS = read_sav("../data/EVS_data_cleaned.sav")
+```
+
+## Descriptives of variables
+
+In the following table, the variables are:
+
+1. `v72` represents the first question of interest (1-strongly agree, 2-agree, 3-disagree, or 4-strongly disagree)
+2. `v80` represents the second question of interest (1-strongly agree, 2-agree, 3-neither agree nor disagree, 4-disagree, or 5-strongly disagree)
+3. `sex` (1-male or 2-female)
+4. `age` (years)
+5. `education` (1-lower, 2-medium, or 3-higher)
+
+```{r descriptives, echo=FALSE, warning=FALSE, message=FALSE}
+library(memisc)
+library(pander)
+pander(summary(EVS[,-which(names(EVS)=="country")]))
+```
+
+
+## Graphs
+
+
+```{r plot_v72, echo=FALSE, message=FALSE}
+library(ggplot2)
+
+ggplot(EVS, aes(as.factor(v72), age)) + 
+  geom_boxplot() + 
+  labs(x = "When a mother works for pay, the children suffer", y = "Age (Years)") + 
+  scale_x_discrete(labels = c("strongly agree", "agree", "disagree", "strongly disagree"))
+```
+We can see that the distributions of age among categories of opinion are quite similar.\
+
+```{r plot_v80, echo=FALSE, message=FALSE}
+ggplot(EVS, aes(as.factor(v80), age)) + 
+  geom_boxplot() + 
+  labs(x = "When jobs are scarce, give priority to local people over immigrants", 
+       y = "Age (Years)") + 
+  scale_x_discrete(labels = c("strongly agree", "agree", "neither agree nor disagree", 
+                              "disagree", "strongly disagree"))
+```
+Same as the previous plot, we can see that the distributions of age among categories of opinion are quite similar.
+
+## Regression models
+
+```{r summary, echo=FALSE, warning=FALSE, message=FALSE}
+model_v72 = lm(v72 ~ age + sqrt(age) + sex + as.factor(education), data = EVS)
+model_v80 = lm(v80 ~ age + sqrt(age) + sex + as.factor(education), data = EVS)
+
+pander(summary(model_v72))
+pander(summary(model_v80))
+```
+
+
