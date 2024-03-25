@@ -22,7 +22,7 @@
 ### Repo Contents 
 
 - [data](./data): downloaded and processed data.
-- [report](./reports): rmarkdown generated files for overall reports for [statisticians](./reports/Report-for-statisticians.pdf) and [policy makers](./reports/Report-for-policy-makers.pdf).
+- [report](./reports): `rmarkdown` generated files for overall reports for [statisticians](./reports/Report-for-statisticians.pdf) and [policy makers](./reports/Report-for-policy-makers.pdf).
 
 
 ### Main findings 
