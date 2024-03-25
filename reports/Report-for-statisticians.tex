@@ -77,6 +77,16 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -113,85 +123,281 @@
 \begin{document}
 \maketitle
 
-\hypertarget{r-markdown}{%
-\subsection{R Markdown}\label{r-markdown}}
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
 
-This is an R Markdown document. Markdown is a simple formatting syntax
-for authoring HTML, PDF, and MS Word documents. For more details on
-using R Markdown see \url{http://rmarkdown.rstudio.com}.
+This is the overall report for the analysis on the
+\href{https://search.gesis.org/research_data/ZA7500}{European Value
+Study (EVS) from 2017} which is a survey research program on how
+Europeans think about family, work, religion, politics, and society. We
+are mainly interested in Enropeans thoughts on two questions:
 
-When you click the \textbf{Knit} button a document will be generated
-that includes both content as well as the output of any embedded R code
-chunks within the document. You can embed an R code chunk like this:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(model\_v72)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = v72 ~ age + v243_r + country, data = EVS)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.1517 -0.6363  0.1319  0.4923  1.7879 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  2.376e+00  1.726e-02  137.67   <2e-16 ***
-## age         -4.696e-03  2.059e-04  -22.80   <2e-16 ***
-## v243_r       2.098e-01  5.004e-03   41.92   <2e-16 ***
-## country      2.985e-04  1.379e-05   21.65   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.8549 on 57385 degrees of freedom
-##   (1965 observations deleted due to missingness)
-## Multiple R-squared:  0.05278,    Adjusted R-squared:  0.05273 
-## F-statistic:  1066 on 3 and 57385 DF,  p-value: < 2.2e-16
-\end{verbatim}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  When a mother works for pay, do Europeans think the children suffer?
+\item
+  When jobs are scarce, do Europeans think employers should give
+  priority to local people over immigrants?
+\end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(model\_v80)}
+\FunctionTok{library}\NormalTok{(haven)}
+\NormalTok{EVS }\OtherTok{=} \FunctionTok{read\_sav}\NormalTok{(}\StringTok{"../data/EVS\_data\_cleaned.sav"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = v80 ~ age + v243_r + country, data = EVS)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -1.7610 -1.1415 -0.2602  0.8423  3.1915 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  1.758e+00  2.525e-02   69.64   <2e-16 ***
-## age         -2.585e-03  3.013e-04   -8.58   <2e-16 ***
-## v243_r       2.406e-01  7.329e-03   32.83   <2e-16 ***
-## country      4.071e-04  2.022e-05   20.14   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.259 on 57919 degrees of freedom
-##   (1431 observations deleted due to missingness)
-## Multiple R-squared:  0.02883,    Adjusted R-squared:  0.02878 
-## F-statistic: 573.2 on 3 and 57919 DF,  p-value: < 2.2e-16
-\end{verbatim}
+\hypertarget{descriptives-of-variables}{%
+\subsection{Descriptives of variables}\label{descriptives-of-variables}}
 
-\hypertarget{including-plots}{%
-\subsection{Including Plots}\label{including-plots}}
+In the following table, the variables are:
 
-You can also embed plots, for example:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{v72} represents the first question of interest (1-strongly
+  agree, 2-agree, 3-disagree, or 4-strongly disagree)
+\item
+  \texttt{v80} represents the second question of interest (1-strongly
+  agree, 2-agree, 3-neither agree nor disagree, 4-disagree, or
+  5-strongly disagree)
+\item
+  \texttt{sex} (1-male or 2-female)
+\item
+  \texttt{age} (years)
+\item
+  \texttt{education} (1-lower, 2-medium, or 3-higher)
+\end{enumerate}
 
-\includegraphics{Report-for-statisticians_files/figure-latex/pressure-1.pdf}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(memisc)}
+\FunctionTok{library}\NormalTok{(pander)}
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{summary}\NormalTok{(EVS[,}\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(}\FunctionTok{names}\NormalTok{(EVS)}\SpecialCharTok{==}\StringTok{"country"}\NormalTok{)]))}
+\end{Highlighting}
+\end{Shaded}
 
-Note that the \texttt{echo\ =\ FALSE} parameter was added to the code
-chunk to prevent printing of the R code that generated the plot.
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+v72
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+v80
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+sex
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+age
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+education
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Min. :1.000 & Min. :1.000 & Min. :1.000 & Min. :18.00 & Min. :1.000 \\
+1st Qu.:2.000 & 1st Qu.:1.000 & 1st Qu.:1.000 & 1st Qu.:35.00 & 1st
+Qu.:2.000 \\
+Median :3.000 & Median :2.000 & Median :2.000 & Median :50.00 & Median
+:2.000 \\
+Mean :2.713 & Mean :2.313 & Mean :1.558 & Mean :49.57 & Mean :2.139 \\
+3rd Qu.:3.000 & 3rd Qu.:3.000 & 3rd Qu.:2.000 & 3rd Qu.:64.00 & 3rd
+Qu.:3.000 \\
+Max. :4.000 & Max. :5.000 & Max. :2.000 & Max. :82.00 & Max. :3.000 \\
+\end{longtable}
+
+\hypertarget{graphs}{%
+\subsection{Graphs}\label{graphs}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{ggplot}\NormalTok{(EVS, }\FunctionTok{aes}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(v72), age)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"When a mother works for pay, the children suffer"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Age (Years)"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"strongly agree"}\NormalTok{, }\StringTok{"agree"}\NormalTok{, }\StringTok{"disagree"}\NormalTok{, }\StringTok{"strongly disagree"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Report-for-statisticians_files/figure-latex/plot_v72-1.pdf}
+We can see that the distributions of age among categories of opinion are
+quite similar.\\
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(EVS, }\FunctionTok{aes}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(v80), age)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"When jobs are scarce, give priority to local people over immigrants"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Age (Years)"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"strongly agree"}\NormalTok{, }\StringTok{"agree"}\NormalTok{, }\StringTok{"neither agree nor disagree"}\NormalTok{, }
+                              \StringTok{"disagree"}\NormalTok{, }\StringTok{"strongly disagree"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Report-for-statisticians_files/figure-latex/plot_v80-1.pdf}
+Same as the previous plot, we can see that the distributions of age
+among categories of opinion are quite similar.
+
+\hypertarget{regression-models}{%
+\subsection{Regression models}\label{regression-models}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_v72 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(v72 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age }\SpecialCharTok{+} \FunctionTok{sqrt}\NormalTok{(age) }\SpecialCharTok{+}\NormalTok{ sex }\SpecialCharTok{+} \FunctionTok{as.factor}\NormalTok{(education), }\AttributeTok{data =}\NormalTok{ EVS)}
+\NormalTok{model\_v80 }\OtherTok{=} \FunctionTok{lm}\NormalTok{(v80 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age }\SpecialCharTok{+} \FunctionTok{sqrt}\NormalTok{(age) }\SpecialCharTok{+}\NormalTok{ sex }\SpecialCharTok{+} \FunctionTok{as.factor}\NormalTok{(education), }\AttributeTok{data =}\NormalTok{ EVS)}
+
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{summary}\NormalTok{(model\_v72))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3636}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1558}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1688}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1429}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1688}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+~
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Estimate
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Std. Error
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+t value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Pr(\textgreater\textbar t\textbar)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{(Intercept)} & 2.664 & 0.09775 & 27.25 & 1.897e-162 \\
+\textbf{age} & -0.004774 & 0.002203 & -2.167 & 0.03023 \\
+\textbf{sqrt(age)} & -0.001149 & 0.02976 & -0.03861 & 0.9692 \\
+\textbf{sex} & 0.06448 & 0.007257 & 8.886 & 6.537e-19 \\
+\textbf{as.factor(education)2} & 0.1233 & 0.009852 & 12.51 &
+7.325e-36 \\
+\textbf{as.factor(education)3} & 0.4012 & 0.01046 & 38.36 &
+7.574e-318 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2083}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3056}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2361}}@{}}
+\caption{Fitting linear model: v72 \textasciitilde{} age + sqrt(age) +
+sex + as.factor(education)}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+Observations
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Residual Std. Error
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(R^2\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Adjusted \(R^2\)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+Observations
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Residual Std. Error
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(R^2\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Adjusted \(R^2\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+56755 & 0.8576 & 0.04769 & 0.04761 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pander}\NormalTok{(}\FunctionTok{summary}\NormalTok{(model\_v80))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1711}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1316}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1711}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+~
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Estimate
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Std. Error
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+t value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Pr(\textgreater\textbar t\textbar)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{(Intercept)} & 2.375 & 0.1434 & 16.56 & 1.878e-61 \\
+\textbf{age} & -0.003823 & 0.003232 & -1.183 & 0.2369 \\
+\textbf{sqrt(age)} & 0.006788 & 0.04367 & 0.1554 & 0.8765 \\
+\textbf{sex} & -0.03151 & 0.01065 & -2.959 & 0.003084 \\
+\textbf{as.factor(education)2} & -0.03504 & 0.01446 & -2.424 &
+0.01536 \\
+\textbf{as.factor(education)3} & 0.4238 & 0.01535 & 27.61 &
+9.812e-167 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2083}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3056}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2361}}@{}}
+\caption{Fitting linear model: v80 \textasciitilde{} age + sqrt(age) +
+sex + as.factor(education)}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+Observations
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Residual Std. Error
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(R^2\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Adjusted \(R^2\)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+Observations
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Residual Std. Error
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(R^2\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Adjusted \(R^2\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+56755 & 1.258 & 0.03124 & 0.03115 \\
+\end{longtable}
 
 \end{document}
