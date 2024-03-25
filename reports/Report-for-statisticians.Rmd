@@ -3,8 +3,9 @@ title: "Report for statisticians"
 author: "Becky Yuen"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  pdf_document:
     keep_md: true
+    keep_tex: true
 ---
 
 ## Introduction
