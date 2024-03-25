@@ -13,7 +13,10 @@
 
 ### Description
 
-In this project we aim to investigate the trend of COVID-19 cases over the past few years. All data are downloaded from [JHU CSSE COVID-19 Dataset](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data).
+
+
+
+
 
 
 ### Repo Contents 
