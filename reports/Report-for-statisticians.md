@@ -3,9 +3,8 @@ title: "Report for statisticians"
 author: "Becky Yuen"
 date: "2024-03-24"
 output:
-  pdf_document:
+  html_document:
     keep_md: true
-    keep_tex: true
 ---
 
 ## Introduction
@@ -69,7 +68,7 @@ ggplot(EVS, aes(as.factor(v72), age)) +
   scale_x_discrete(labels = c("strongly agree", "agree", "disagree", "strongly disagree"))
 ```
 
-![](Report-for-statisticians_files/figure-latex/plot_v72-1.pdf)<!-- --> 
+![](Report-for-statisticians_files/figure-html/plot_v72-1.png)<!-- -->
 We can see that the distributions of age among categories of opinion are quite similar.\
 
 
@@ -82,7 +81,7 @@ ggplot(EVS, aes(as.factor(v80), age)) +
                               "disagree", "strongly disagree"))
 ```
 
-![](Report-for-statisticians_files/figure-latex/plot_v80-1.pdf)<!-- --> 
+![](Report-for-statisticians_files/figure-html/plot_v80-1.png)<!-- -->
 Same as the previous plot, we can see that the distributions of age among categories of opinion are quite similar.
 
 ## Regression models
