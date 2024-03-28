@@ -65,6 +65,49 @@ Please refer to the overall reports for [statisticians](./reports/Report-for-sta
 
 </details>
 
+Alternatively, you may download the html file and view it in a browser:
+<details>
+<summary>Country List</summary> 
+ 
+* [Albania](./reports/Report-for-country-Albania.html) 
+* [Azerbaijan](./reports/Report-for-country-Azerbaijan.html) 
+* [Austria](./reports/Report-for-country-Austria.html) 
+* [Armenia](./reports/Report-for-country-Armenia.html) 
+* [Bosnia and Herzegovina](./reports/Report-for-country-Bosnia-and-Herzegovina.md) 
+* [Bulgaria](./reports/Report-for-country-Bulgaria.html) 
+* [Belarus](./reports/Report-for-country-Belarus.html) 
+* [Croatia](./reports/Report-for-country-Croatia.html) 
+* [Czechia](./reports/Report-for-country-Czechia.html) 
+* [Denmark](./reports/Report-for-country-Denmark.html) 
+* [Estonia](./reports/Report-for-country-Estonia.html) 
+* [Finland](./reports/Report-for-country-Finland.html) 
+* [France](./reports/Report-for-country-France.html) 
+* [Georgia](./reports/Report-for-country-Georgia.html) 
+* [Germany](./reports/Report-for-country-Germany.html) 
+* [Hungary](./reports/Report-for-country-Hungary.html) 
+* [Iceland](./reports/Report-for-country-Iceland.html) 
+* [Italy](./reports/Report-for-country-Italy.html) 
+* [Latvia](./reports/Report-for-country-Latvia.html) 
+* [Lithuania](./reports/Report-for-country-Lithuania.html) 
+* [Montenegro](./reports/Report-for-country-Montenegro.html) 
+* [Netherlands](./reports/Report-for-country-Netherlands.html) 
+* [Norway](./reports/Report-for-country-Norway.html) 
+* [Poland](./reports/Report-for-country-Poland.html) 
+* [Portugal](./reports/Report-for-country-Portugal.html) 
+* [Romania](./reports/Report-for-country-Romania.html) 
+* [Russia](./reports/Report-for-country-Russia.html) 
+* [Serbia](./reports/Report-for-country-Serbia.html) 
+* [Slovakia](./reports/Report-for-country-Slovakia.html) 
+* [Slovenia](./reports/Report-for-country-Slovenia.html) 
+* [Spain](./reports/Report-for-country-Spain.html) 
+* [Sweden](./reports/Report-for-country-Sweden.html) 
+* [Switzerland](./reports/Report-for-country-Switzerland.html) 
+* [Ukraine](./reports/Report-for-country-Ukraine.html) 
+* [North Macedonia](./reports/Report-for-country-North-Macedonia.md) 
+* [Great Britain](./reports/Report-for-country-Great-Britain.md) 
+
+</details>
+
 
 ### Session Info
 
