@@ -58,10 +58,17 @@ for( i in 1:length(country_list) ){
     print(paste("There is no data for ", names(country_list)[i]))
     next
   }else{
-    rmarkdown::render("./reports/batch-report.Rmd", 
-                    output_file = paste("Report-for-country-", names(country_list)[i]),
-                    params = list(country_num = country_list[i], country_char = names(country_list)[i]),
-                    quiet = TRUE)
+    if( grepl(" ", names(country_list)[i]) == FALSE ){
+      rmarkdown::render("./reports/batch-report.Rmd", 
+                        output_file = paste("Report-for-country-", names(country_list)[i], sep=""),
+                        params = list(country_num = country_list[i], country_char = names(country_list)[i]),
+                        quiet = TRUE)
+    }else{
+      rmarkdown::render("./reports/batch-report.Rmd", 
+                        output_file = paste("Report-for-country-", paste(unlist(strsplit(names(country_list)[i], " ")), collapse="-"), sep=""),
+                        params = list(country_num = country_list[i], country_char = names(country_list)[i]),
+                        quiet = TRUE)
+    }
   }
 }
 
@@ -73,8 +80,13 @@ if(is.null(null_country)==FALSE){
 
 dropdown_list = paste("<details>","\n<summary>Country List</summary> \n \n",sep="")
 for( i in 1:length(country_list) ){
-  dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",names(country_list)[i],".html) \n",sep="")
+  if( grepl(" ", names(country_list)[i]) == FALSE ){
+    dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",names(country_list)[i],".html) \n",sep="")
+  }else{
+    dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",paste(unlist(strsplit(names(country_list)[i], " ")), collapse="-"),".html) \n",sep="")
+  }
 }
 dropdown_list = paste(dropdown_list,"\n</details>",sep="")
 cat(dropdown_list)
+
 

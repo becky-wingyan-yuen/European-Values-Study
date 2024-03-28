@@ -30,7 +30,7 @@ Please refer to the overall reports for [statisticians](./reports/Report-for-sta
 * [Azerbaijan](./reports/Report-for-country-Azerbaijan.html) 
 * [Austria](./reports/Report-for-country-Austria.html) 
 * [Armenia](./reports/Report-for-country-Armenia.html) 
-* [Bosnia and Herzegovina](./reports/Report-for-country-Bosnia and Herzegovina.html) 
+* [Bosnia and Herzegovina](./reports/Report-for-country-Bosnia-and-Herzegovina.html) 
 * [Bulgaria](./reports/Report-for-country-Bulgaria.html) 
 * [Belarus](./reports/Report-for-country-Belarus.html) 
 * [Croatia](./reports/Report-for-country-Croatia.html) 
@@ -60,8 +60,8 @@ Please refer to the overall reports for [statisticians](./reports/Report-for-sta
 * [Sweden](./reports/Report-for-country-Sweden.html) 
 * [Switzerland](./reports/Report-for-country-Switzerland.html) 
 * [Ukraine](./reports/Report-for-country-Ukraine.html) 
-* [North Macedonia](./reports/Report-for-country-North Macedonia.html) 
-* [Great Britain](./reports/Report-for-country-Great Britain.html) 
+* [North Macedonia](./reports/Report-for-country-North-Macedonia.html) 
+* [Great Britain](./reports/Report-for-country-Great-Britain.html) 
 
 </details>
 
