@@ -1,7 +1,6 @@
 # SURV675 S2024 Assignment 2
 
 
-
 ## Contents
 
 - [Description](#description)
@@ -10,13 +9,9 @@
 - [Session Info](#session-info)
 
 
-
 ### Description
 
-
-
-
-
+In this project we aim to investigate how Europeans think about family, work, religion, politics, and society. All data are downloaded from [European Values Study 2017: Integrated Dataset (EVS 2017)](https://search.gesis.org/research_data/ZA7500).
 
 
 ### Repo Contents 
