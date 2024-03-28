@@ -64,6 +64,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{float} \floatplacement{figure}{H}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -78,7 +79,7 @@
 
 \title{Report for policy makers}
 \author{Becky Yuen}
-\date{2024-03-24}
+\date{}
 
 \begin{document}
 \maketitle
@@ -90,7 +91,7 @@ This is the overall report for the analysis on the
 \href{https://search.gesis.org/research_data/ZA7500}{European Value
 Study (EVS) from 2017} which is a survey research program on how
 Europeans think about family, work, religion, politics, and society. We
-are mainly interested in Enropeans thoughts on two questions:
+are mainly interested in Europeans thoughts on two questions:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -126,58 +127,101 @@ In the following table, the variables are:
 \end{enumerate}
 
 \begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2222}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2222}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2222}}@{}}
+\caption{Descriptive table for continuous variables}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 v72
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
 v80
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-sex
+age
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+v72
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+v80
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
 age
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-education
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Min. :1.000 & Min. :1.000 & Min. :1.000 & Min. :18.00 & Min. :1.000 \\
-1st Qu.:2.000 & 1st Qu.:1.000 & 1st Qu.:1.000 & 1st Qu.:35.00 & 1st
-Qu.:2.000 \\
-Median :3.000 & Median :2.000 & Median :2.000 & Median :50.00 & Median
-:2.000 \\
-Mean :2.713 & Mean :2.313 & Mean :1.558 & Mean :49.57 & Mean :2.139 \\
-3rd Qu.:3.000 & 3rd Qu.:3.000 & 3rd Qu.:2.000 & 3rd Qu.:64.00 & 3rd
-Qu.:3.000 \\
-Max. :4.000 & Max. :5.000 & Max. :2.000 & Max. :82.00 & Max. :3.000 \\
+Min. :1.000 & Min. :1.000 & Min. :18.00 \\
+1st Qu.:2.000 & 1st Qu.:1.000 & 1st Qu.:35.00 \\
+Median :3.000 & Median :2.000 & Median :50.00 \\
+Mean :2.713 & Mean :2.313 & Mean :49.57 \\
+3rd Qu.:3.000 & 3rd Qu.:3.000 & 3rd Qu.:64.00 \\
+Max. :4.000 & Max. :5.000 & Max. :82.00 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Descriptive table for categorical variables}\tabularnewline
+\toprule\noalign{}
+Education & Sex & Freq \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Education & Sex & Freq \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Lower & M & 4727.00 \\
+Medium & M & 11992.00 \\
+Higher & M & 8351.00 \\
+Lower & F & 6802.00 \\
+Medium & F & 13835.00 \\
+Higher & F & 11048.00 \\
 \end{longtable}
 
 \hypertarget{graphs}{%
 \subsection{Graphs}\label{graphs}}
 
-\includegraphics{Report-for-policy-makers_files/figure-latex/plot_v72-1.pdf}
+\begin{figure}
+
+{\centering \includegraphics[width=0.65\linewidth]{Report-for-policy-makers_files/figure-latex/plot_v72-1} 
+
+}
+
+\caption{Boxplot for first question of interest (v72)}\label{fig:plot_v72}
+\end{figure}
+
 We can see that the distributions of age among categories of opinion are
 quite similar.\\
 
-\includegraphics{Report-for-policy-makers_files/figure-latex/plot_v80-1.pdf}
+\begin{figure}
+
+{\centering \includegraphics[width=0.65\linewidth]{Report-for-policy-makers_files/figure-latex/plot_v80-1} 
+
+}
+
+\caption{Boxplot for second question of interest (v80)}\label{fig:plot_v80}
+\end{figure}
+
 Same as the previous plot, we can see that the distributions of age
 among categories of opinion are quite similar.
 
-\hypertarget{regression-models}{%
-\subsection{Regression models}\label{regression-models}}
+\hypertarget{regression-analysis}{%
+\subsection{Regression Analysis}\label{regression-analysis}}
+
+\hypertarget{model-v72-age-sqrttextage-sex-education}{%
+\subsubsection{\texorpdfstring{Model: v72 \textasciitilde{} age +
+\(\sqrt{\text{age}}\) + sex +
+education}{Model: v72 \textasciitilde{} age + \textbackslash sqrt\{\textbackslash text\{age\}\} + sex + education}}\label{model-v72-age-sqrttextage-sex-education}}
 
 \begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3636}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1558}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1688}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1429}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1688}}@{}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3194}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1806}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1528}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1806}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 ~
@@ -194,14 +238,12 @@ Pr(\textgreater\textbar t\textbar)
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{(Intercept)} & 2.664 & 0.09775 & 27.25 & 1.897e-162 \\
+\textbf{(Intercept)} & 2.728 & 0.09723 & 28.06 & 4.655e-172 \\
 \textbf{age} & -0.004774 & 0.002203 & -2.167 & 0.03023 \\
 \textbf{sqrt(age)} & -0.001149 & 0.02976 & -0.03861 & 0.9692 \\
-\textbf{sex} & 0.06448 & 0.007257 & 8.886 & 6.537e-19 \\
-\textbf{as.factor(education)2} & 0.1233 & 0.009852 & 12.51 &
-7.325e-36 \\
-\textbf{as.factor(education)3} & 0.4012 & 0.01046 & 38.36 &
-7.574e-318 \\
+\textbf{sex-female} & 0.06448 & 0.007257 & 8.886 & 6.537e-19 \\
+\textbf{education-medium} & 0.1233 & 0.009852 & 12.51 & 7.325e-36 \\
+\textbf{education-higher} & 0.4012 & 0.01046 & 38.36 & 7.574e-318 \\
 \end{longtable}
 
 \begin{longtable}[]{@{}
@@ -210,7 +252,7 @@ Pr(\textgreater\textbar t\textbar)
   >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1389}}
   >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2361}}@{}}
 \caption{Fitting linear model: v72 \textasciitilde{} age + sqrt(age) +
-sex + as.factor(education)}\tabularnewline
+sex + education}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 Observations
@@ -240,12 +282,22 @@ Adjusted \(R^2\)
 56755 & 0.8576 & 0.04769 & 0.04761 \\
 \end{longtable}
 
+The coefficient estimate for \texttt{sex} is 0.0644834 which means that
+the effect of a female respondent compared to a male is positive. The
+corresponding \(p\)-value is \ensuremath{6.5368574\times 10^{-19}} which
+is smaller than 0.05. Thus, \texttt{sex} is significant in the model.
+
+\hypertarget{model-v80-age-sqrttextage-sex-education}{%
+\subsubsection{\texorpdfstring{Model: v80 \textasciitilde{} age +
+\(\sqrt{\text{age}}\) + sex +
+education}{Model: v80 \textasciitilde{} age + \textbackslash sqrt\{\textbackslash text\{age\}\} + sex + education}}\label{model-v80-age-sqrttextage-sex-education}}
+
 \begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1711}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1316}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1711}}@{}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3194}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1667}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1806}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1389}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1806}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 ~
@@ -262,14 +314,12 @@ Pr(\textgreater\textbar t\textbar)
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{(Intercept)} & 2.375 & 0.1434 & 16.56 & 1.878e-61 \\
+\textbf{(Intercept)} & 2.344 & 0.1427 & 16.43 & 1.646e-60 \\
 \textbf{age} & -0.003823 & 0.003232 & -1.183 & 0.2369 \\
 \textbf{sqrt(age)} & 0.006788 & 0.04367 & 0.1554 & 0.8765 \\
-\textbf{sex} & -0.03151 & 0.01065 & -2.959 & 0.003084 \\
-\textbf{as.factor(education)2} & -0.03504 & 0.01446 & -2.424 &
-0.01536 \\
-\textbf{as.factor(education)3} & 0.4238 & 0.01535 & 27.61 &
-9.812e-167 \\
+\textbf{sex-female} & -0.03151 & 0.01065 & -2.959 & 0.003084 \\
+\textbf{education-medium} & -0.03504 & 0.01446 & -2.424 & 0.01536 \\
+\textbf{education-higher} & 0.4238 & 0.01535 & 27.61 & 9.812e-167 \\
 \end{longtable}
 
 \begin{longtable}[]{@{}
@@ -278,7 +328,7 @@ Pr(\textgreater\textbar t\textbar)
   >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1389}}
   >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2361}}@{}}
 \caption{Fitting linear model: v80 \textasciitilde{} age + sqrt(age) +
-sex + as.factor(education)}\tabularnewline
+sex + education}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 Observations
@@ -307,5 +357,10 @@ Adjusted \(R^2\)
 \endlastfoot
 56755 & 1.258 & 0.03124 & 0.03115 \\
 \end{longtable}
+
+The coefficient estimate for \texttt{sex} is -0.0315131 which means that
+the effect of a female respondent compared to a male is negative. The
+corresponding \(p\)-value is 0.003084 which is smaller than 0.05. Thus,
+\texttt{sex} is significant in the model.
 
 \end{document}
