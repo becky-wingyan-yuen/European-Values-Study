@@ -1,21 +1,27 @@
 ---
 title: "Report for policy makers"
 author: "Becky Yuen"
-date: "`r Sys.Date()`"
 output:
   pdf_document:
     keep_md: true
     keep_tex: true
+header-includes:
+ \usepackage{float}
+ \floatplacement{figure}{H}
 ---
+
+```{r global options, include = FALSE}
+knitr::opts_chunk$set(echo=FALSE, include = TRUE, warning=FALSE, message=FALSE)
+```
 
 ## Introduction
 
-This is the overall report for the analysis on the [European Value Study (EVS) from 2017](https://search.gesis.org/research_data/ZA7500) which is a survey research program on how Europeans think about family, work, religion, politics, and society. We are mainly interested in Enropeans thoughts on two questions:
+This is the overall report for the analysis on the [European Value Study (EVS) from 2017](https://search.gesis.org/research_data/ZA7500) which is a survey research program on how Europeans think about family, work, religion, politics, and society. We are mainly interested in Europeans thoughts on two questions:
 
 1. When a mother works for pay, do Europeans think the children suffer?
 2. When jobs are scarce, do Europeans think employers should give priority to local people over immigrants?
 
-```{r read in data, echo=FALSE, message=FALSE}
+```{r read in data}
 library(haven)
 EVS = read_sav("../data/EVS_data_cleaned.sav")
 ```
@@ -30,17 +36,29 @@ In the following table, the variables are:
 4. `age` (years)
 5. `education` (1-lower, 2-medium, or 3-higher)
 
-```{r descriptives, echo=FALSE, warning=FALSE, message=FALSE}
+```{r descriptives continuous}
 library(memisc)
 library(pander)
-pander(summary(EVS[,-which(names(EVS)=="country")]))
+
+pander(summary(EVS[,-which(names(EVS)%in%c("country","sex","education"))]), 
+       caption="Descriptive table for continuous variables")
+```
+
+```{r descriptives categorical}
+library(insight)
+
+cat_table = table(EVS$education, EVS$sex, dnn = c("Education","Sex"))
+rownames(cat_table) = c("Lower","Medium","Higher")
+colnames(cat_table) = c("M","F")
+
+export_table(format_table(cat_table), format = "md", 
+             caption = "Descriptive table for categorical variables")
 ```
 
 
 ## Graphs
 
-
-```{r plot_v72, echo=FALSE, message=FALSE}
+```{r plot_v72, fig.cap="Boxplot for first question of interest (v72)", out.width="65%", fig.align='center'}
 library(ggplot2)
 
 ggplot(EVS, aes(as.factor(v72), age)) + 
@@ -48,9 +66,10 @@ ggplot(EVS, aes(as.factor(v72), age)) +
   labs(x = "When a mother works for pay, the children suffer", y = "Age (Years)") + 
   scale_x_discrete(labels = c("strongly agree", "agree", "disagree", "strongly disagree"))
 ```
+
 We can see that the distributions of age among categories of opinion are quite similar.\
 
-```{r plot_v80, echo=FALSE, message=FALSE}
+```{r plot_v80, fig.cap="Boxplot for second question of interest (v80)", out.width="65%", fig.align='center'}
 ggplot(EVS, aes(as.factor(v80), age)) + 
   geom_boxplot() + 
   labs(x = "When jobs are scarce, give priority to local people over immigrants", 
@@ -58,16 +77,35 @@ ggplot(EVS, aes(as.factor(v80), age)) +
   scale_x_discrete(labels = c("strongly agree", "agree", "neither agree nor disagree", 
                               "disagree", "strongly disagree"))
 ```
+
 Same as the previous plot, we can see that the distributions of age among categories of opinion are quite similar.
 
-## Regression models
+## Regression Analysis
 
-```{r summary, echo=FALSE, warning=FALSE, message=FALSE}
-model_v72 = lm(v72 ~ age + sqrt(age) + sex + as.factor(education), data = EVS)
-model_v80 = lm(v80 ~ age + sqrt(age) + sex + as.factor(education), data = EVS)
+### Model: v72 ~ age + $\sqrt{\text{age}}$ + sex + education
 
+```{r factorize}
+EVS$sex = factor(EVS$sex, levels=c(1,2), labels=c("-male","-female"))
+EVS$education = factor(EVS$education, levels=c(1,2,3), labels=c("-lower","-medium","-higher"))
+```
+
+```{r global library, echo=FALSE}
+library(stringr)
+```
+
+```{r summary_v72}
+model_v72 = lm(v72 ~ age + sqrt(age) + sex + education, data = EVS)
 pander(summary(model_v72))
+```
+
+The coefficient estimate for `sex` is `r (v72_sex_est = model_v72$coefficients[which(str_detect(names(model_v72$coefficients),"sex"))])` which means that the effect of a female respondent compared to a male is `r if(v72_sex_est>0){"positive"}else{"negative"}`. The corresponding $p$-value is `r (v72_sex_p = summary(model_v72)$coefficients[which(str_detect(names(model_v72$coefficients),"sex")),4])` which is `r if(v72_sex_p<0.05){"smaller than 0.05"}else{"greater than or equal to 0.05"}`. Thus, `sex` is `r if(v72_sex_p<0.05){"significant in the model"}else{"not significant in the model"}`.
+
+### Model: v80 ~ age + $\sqrt{\text{age}}$ + sex + education
+
+```{r summary_v80}
+model_v80 = lm(v80 ~ age + sqrt(age) + sex + education, data = EVS)
 pander(summary(model_v80))
 ```
 
+The coefficient estimate for `sex` is `r (v80_sex_est = model_v80$coefficients[which(str_detect(names(model_v80$coefficients),"sex"))])` which means that the effect of a female respondent compared to a male is `r if(v80_sex_est>0){"positive"}else{"negative"}`. The corresponding $p$-value is `r (v80_sex_p = summary(model_v80)$coefficients[which(str_detect(names(model_v80$coefficients),"sex")),4])` which is `r if(v80_sex_p<0.05){"smaller than 0.05"}else{"greater than or equal to 0.05"}`. Thus, `sex` is `r if(v80_sex_p<0.05){"significant in the model"}else{"not significant in the model"}`.
 
