@@ -76,7 +76,7 @@ Alternatively, you may download the html file and view it in a browser:
 * [Azerbaijan](./reports/Report-for-country-Azerbaijan.html) 
 * [Austria](./reports/Report-for-country-Austria.html) 
 * [Armenia](./reports/Report-for-country-Armenia.html) 
-* [Bosnia and Herzegovina](./reports/Report-for-country-Bosnia-and-Herzegovina.md) 
+* [Bosnia and Herzegovina](./reports/Report-for-country-Bosnia-and-Herzegovina.html) 
 * [Bulgaria](./reports/Report-for-country-Bulgaria.html) 
 * [Belarus](./reports/Report-for-country-Belarus.html) 
 * [Croatia](./reports/Report-for-country-Croatia.html) 
@@ -106,8 +106,8 @@ Alternatively, you may download the html file and view it in a browser:
 * [Sweden](./reports/Report-for-country-Sweden.html) 
 * [Switzerland](./reports/Report-for-country-Switzerland.html) 
 * [Ukraine](./reports/Report-for-country-Ukraine.html) 
-* [North Macedonia](./reports/Report-for-country-North-Macedonia.md) 
-* [Great Britain](./reports/Report-for-country-Great-Britain.md) 
+* [North Macedonia](./reports/Report-for-country-North-Macedonia.html) 
+* [Great Britain](./reports/Report-for-country-Great-Britain.html) 
 
 </details>
 
