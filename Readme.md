@@ -16,8 +16,9 @@ In this project we aim to investigate how Europeans think about family, work, re
 
 ### Repo Contents 
 
+- [code](./code): R code for reproducing the results.
 - [data](./data): downloaded and processed data.
-- [report](./reports): `rmarkdown` generated files for reports
+- [report](./reports): `rmarkdown` files and generated files for reports.
 
 
 ### Main findings 
