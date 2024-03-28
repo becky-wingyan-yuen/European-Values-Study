@@ -22,7 +22,9 @@ In this project we aim to investigate how Europeans think about family, work, re
 
 ### Main findings 
 
-Please refer to the overall reports for [statisticians](./reports/Report-for-statisticians.pdf) and [policy makers](./reports/Report-for-policy-makers.pdf). Besides, there are reports for different countries:
+Please refer to the overall reports for [statisticians](./reports/Report-for-statisticians.pdf) and [policy makers](./reports/Report-for-policy-makers.pdf). 
+
+Besides, there are reports for different countries:
 <details>
 <summary>Country List</summary> 
  
