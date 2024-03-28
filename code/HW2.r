@@ -9,7 +9,6 @@ unlink(temp)
 
 rawdata = read_sav("./data/ZA7500_v5-0-0.sav")
 
-
 ######## variables kept ######## 
 ## 
 #### Independent variables ####
@@ -42,30 +41,40 @@ EVS = EVS[-which(is.na(EVS$age)|is.na(EVS$sex)|is.na(EVS$country)|is.na(EVS$v72)
 
 write_sav(EVS,"./data/EVS_data_cleaned.sav")
 
-library(ggplot2)
+#### Create overall reports ####
 
-ggplot(EVS, aes(as.factor(v72), age)) + 
-  geom_boxplot() + 
-  labs(x = "When a mother works for pay, do you think the children suffer?", y = "Age (Years)") + 
-  scale_x_discrete(labels = c("strongly agree", "agree", "disagree", "strongly disagree"))
-  
+rmarkdown::render("./reports/Report-for-statisticians.Rmd")
+rmarkdown::render("./reports/Report-for-policy-makers.Rmd")
 
-ggplot(EVS, aes(as.factor(v80), age)) + 
-  geom_boxplot() + 
-  labs(x = "When jobs are scarce, do you think employers should give priority to local people over immigrants?", y = "Age (Years)") + 
-  scale_x_discrete(labels = c("strongly agree", "agree", "neither agree nor disagree", "disagree", "strongly disagree"))
+#### Code for generating dynamic reports ####
 
+library(labelled)
+country_list = val_labels(EVS$country)
+null_country = c()
 
+for( i in 1:length(country_list) ){
+  if( dim(EVS[which(EVS$country==country_list[i]),])[1]==0 ){
+    null_country = c(null_country,names(country_list)[i])
+    print(paste("There is no data for ", names(country_list)[i]))
+    next
+  }else{
+    rmarkdown::render("./reports/batch-report.Rmd", 
+                    output_file = paste("Report-for-country-", names(country_list)[i]),
+                    params = list(country_num = country_list[i], country_char = names(country_list)[i]),
+                    quiet = TRUE)
+  }
+}
 
-model_v72 = lm(v72 ~ age + sqrt(age) + sex + as.factor(education), data = EVS)
-model_v80 = lm(v80 ~ age + sqrt(age) + sex + as.factor(education), data = EVS)
+if(is.null(null_country)==FALSE){
+  country_list = country_list[-which(names(country_list)%in%null_country)]
+}
 
-summary(model_v72)
-summary(model_v80)
+#### Code for generating markdown dropdown list for accessing countries' reports ####
 
-
-
-
-
-
+dropdown_list = paste("<details>","\n<summary>Country List</summary> \n \n",sep="")
+for( i in 1:length(country_list) ){
+  dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",names(country_list)[i],".html) \n",sep="")
+}
+dropdown_list = paste(dropdown_list,"\n</details>",sep="")
+cat(dropdown_list)
 
