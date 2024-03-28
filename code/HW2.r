@@ -81,9 +81,9 @@ if(is.null(null_country)==FALSE){
 dropdown_list = paste("<details>","\n<summary>Country List</summary> \n \n",sep="")
 for( i in 1:length(country_list) ){
   if( grepl(" ", names(country_list)[i]) == FALSE ){
-    dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",names(country_list)[i],".html) \n",sep="")
+    dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",names(country_list)[i],".md) \n",sep="")
   }else{
-    dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",paste(unlist(strsplit(names(country_list)[i], " ")), collapse="-"),".html) \n",sep="")
+    dropdown_list = paste(dropdown_list,"* [",names(country_list)[i],"](./reports/Report-for-country-",paste(unlist(strsplit(names(country_list)[i], " ")), collapse="-"),".md) \n",sep="")
   }
 }
 dropdown_list = paste(dropdown_list,"\n</details>",sep="")
