@@ -23,6 +23,7 @@ This is the report for the analysis on the [European Value Study (EVS) from 2017
 ```{r read in data}
 library(haven)
 EVS = read_sav("../data/EVS_data_cleaned.sav")
+EVS_country = EVS[which(EVS$country == params$country_num),]
 ```
 
 ## Descriptives of variables
@@ -39,14 +40,14 @@ In the following table, the variables are:
 library(memisc)
 library(pander)
 
-pander(summary(EVS[,-which(names(EVS)%in%c("country","sex","education"))]), 
+pander(summary(EVS_country[,-which(names(EVS_country)%in%c("country","sex","education"))]), 
        caption="Descriptive table for continuous variables")
 ```
 
 ```{r descriptives categorical}
 library(insight)
 
-cat_table = table(EVS$education, EVS$sex, dnn = c("Education","Sex"))
+cat_table = table(EVS_country$education, EVS_country$sex, dnn = c("Education","Sex"))
 rownames(cat_table) = c("Lower","Medium","Higher")
 colnames(cat_table) = c("M","F")
 
@@ -60,14 +61,14 @@ export_table(format_table(cat_table), format = "md",
 ```{r plot_v72, fig.cap="Boxplot for first question of interest (v72)", out.width="65%", fig.align='center'}
 library(ggplot2)
 
-ggplot(EVS, aes(as.factor(v72), age)) + 
+ggplot(EVS_country, aes(as.factor(v72), age)) + 
   geom_boxplot() + 
   labs(x = "When a mother works for pay, the children suffer", y = "Age (Years)") + 
   scale_x_discrete(labels = c("strongly agree", "agree", "disagree", "strongly disagree"))
 ```
 
 ```{r plot_v80, fig.cap="Boxplot for second question of interest (v80)", out.width="65%", fig.align='center'}
-ggplot(EVS, aes(as.factor(v80), age)) + 
+ggplot(EVS_country, aes(as.factor(v80), age)) + 
   geom_boxplot() + 
   labs(x = "When jobs are scarce, give priority to local people over immigrants", 
        y = "Age (Years)") + 
@@ -80,8 +81,8 @@ ggplot(EVS, aes(as.factor(v80), age)) +
 ### Model: v72 ~ age + $\sqrt{\text{age}}$ + sex + education
 
 ```{r factorize}
-EVS$sex = factor(EVS$sex, levels=c(1,2), labels=c("-male","-female"))
-EVS$education = factor(EVS$education, levels=c(1,2,3), labels=c("-lower","-medium","-higher"))
+EVS_country$sex = factor(EVS_country$sex, levels=c(1,2), labels=c("-male","-female"))
+EVS_country$education = factor(EVS_country$education, levels=c(1,2,3), labels=c("-lower","-medium","-higher"))
 ```
 
 ```{r global library, echo=FALSE}
@@ -89,7 +90,7 @@ library(stringr)
 ```
 
 ```{r summary_v72}
-model_v72 = lm(v72 ~ age + sqrt(age) + sex + education, data = EVS)
+model_v72 = lm(v72 ~ age + sqrt(age) + sex + education, data = EVS_country)
 pander(summary(model_v72))
 ```
 
@@ -98,7 +99,7 @@ The coefficient estimate for `sex` is `r (v72_sex_est = model_v72$coefficients[w
 ### Model: v80 ~ age + $\sqrt{\text{age}}$ + sex + education
 
 ```{r summary_v80}
-model_v80 = lm(v80 ~ age + sqrt(age) + sex + education, data = EVS)
+model_v80 = lm(v80 ~ age + sqrt(age) + sex + education, data = EVS_country)
 pander(summary(model_v80))
 ```
 

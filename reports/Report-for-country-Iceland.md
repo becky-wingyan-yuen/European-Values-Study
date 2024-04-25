@@ -31,35 +31,35 @@ In the following table, the variables are:
 5. `education` (1-lower, 2-medium, or 3-higher)
 
 
------------------------------------------------
-      v72             v80             age      
---------------- --------------- ---------------
- Min.  :1.000    Min.  :1.000    Min.  :18.00  
+----------------------------------------------
+      v72             v80            age      
+--------------- --------------- --------------
+ Min.  :1.000    Min.  :1.000    Min.  :18.0  
 
- 1st Qu.:2.000   1st Qu.:1.000   1st Qu.:35.00 
+ 1st Qu.:3.000   1st Qu.:2.000   1st Qu.:34.0 
 
- Median :3.000   Median :2.000   Median :50.00 
+ Median :3.000   Median :3.000   Median :49.0 
 
-  Mean :2.713     Mean :2.313     Mean :49.57  
+  Mean :3.051     Mean :3.257     Mean :48.5  
 
- 3rd Qu.:3.000   3rd Qu.:3.000   3rd Qu.:64.00 
+ 3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:62.0 
 
- Max.  :4.000    Max.  :5.000    Max.  :82.00  
------------------------------------------------
+ Max.  :4.000    Max.  :5.000    Max.  :82.0  
+----------------------------------------------
 
 Table: Descriptive table for continuous variables
 
 
 Table: Descriptive table for categorical variables
 
-|Education | Sex|     Freq|
-|:---------|---:|--------:|
-|Lower     |   M|  4727.00|
-|Medium    |   M| 11992.00|
-|Higher    |   M|  8351.00|
-|Lower     |   F|  6802.00|
-|Medium    |   F| 13835.00|
-|Higher    |   F| 11048.00|
+|Education | Sex|  Freq |
+|:---------|---:|:------|
+|Lower     |   M|155.00 |
+|Medium    |   M|300.00 |
+|Higher    |   M|297.00 |
+|Lower     |   F|196.00 |
+|Medium    |   F|230.00 |
+|Higher    |   F|380.00 |
 
 
 ## Graphs
@@ -83,60 +83,60 @@ Table: Descriptive table for categorical variables
 
 
 
------------------------------------------------------------------------
-        &nbsp;          Estimate    Std. Error   t value     Pr(>|t|)  
----------------------- ----------- ------------ ---------- ------------
-   **(Intercept)**        2.728      0.09723      28.06     4.655e-172 
+--------------------------------------------------------------------
+        &nbsp;          Estimate   Std. Error   t value   Pr(>|t|)  
+---------------------- ---------- ------------ --------- -----------
+   **(Intercept)**       2.966       0.514       5.771    9.478e-09 
 
-       **age**          -0.004774    0.002203     -2.167     0.03023   
+       **age**          -0.01649    0.01187     -1.389     0.1649   
 
-    **sqrt(age)**       -0.001149    0.02976     -0.03861     0.9692   
+    **sqrt(age)**       0.08568      0.1593     0.5379     0.5908   
 
-    **sex-female**       0.06448     0.007257     8.886     6.537e-19  
+    **sex-female**       0.1452     0.03676      3.95     8.168e-05 
 
- **education-medium**    0.1233      0.009852     12.51     7.325e-36  
+ **education-medium**    0.1232     0.05017      2.455     0.01418  
 
- **education-higher**    0.4012      0.01046      38.36     7.574e-318 
------------------------------------------------------------------------
+ **education-higher**    0.4169     0.04991      8.352    1.468e-16 
+--------------------------------------------------------------------
 
 
----------------------------------------------------------------
- Observations   Residual Std. Error    $R^2$    Adjusted $R^2$ 
--------------- --------------------- --------- ----------------
-    56755             0.8576          0.04769      0.04761     
----------------------------------------------------------------
+--------------------------------------------------------------
+ Observations   Residual Std. Error   $R^2$    Adjusted $R^2$ 
+-------------- --------------------- -------- ----------------
+     1558             0.7179          0.1285       0.1257     
+--------------------------------------------------------------
 
 Table: Fitting linear model: v72 ~ age + sqrt(age) + sex + education
 
-The coefficient estimate for `sex` is 0.0644834 which means that the effect of a female respondent compared to a male is positive. The corresponding $p$-value is 6.5368574\times 10^{-19} which is smaller than 0.05. Thus, `sex` is significant in the model.
+The coefficient estimate for `sex` is 0.1451908 which means that the effect of a female respondent compared to a male is positive. The corresponding $p$-value is 8.1675427\times 10^{-5} which is smaller than 0.05. Thus, `sex` is significant in the model.
 
 ### Model: v80 ~ age + $\sqrt{\text{age}}$ + sex + education
 
 
-----------------------------------------------------------------------
-        &nbsp;          Estimate    Std. Error   t value    Pr(>|t|)  
----------------------- ----------- ------------ --------- ------------
-   **(Intercept)**        2.344       0.1427      16.43    1.646e-60  
+--------------------------------------------------------------------
+        &nbsp;          Estimate   Std. Error   t value   Pr(>|t|)  
+---------------------- ---------- ------------ --------- -----------
+   **(Intercept)**       2.255       0.7859      2.869    0.004171  
 
-       **age**          -0.003823    0.003232    -1.183      0.2369   
+       **age**          -0.04562    0.01815     -2.514     0.01205  
 
-    **sqrt(age)**       0.006788     0.04367     0.1554      0.8765   
+    **sqrt(age)**        0.4039      0.2436      1.658     0.09747  
 
-    **sex-female**      -0.03151     0.01065     -2.959     0.003084  
+    **sex-female**      0.07048     0.05621      1.254      0.21    
 
- **education-medium**   -0.03504     0.01446     -2.424     0.01536   
+ **education-medium**    0.2382     0.07671      3.106    0.001932  
 
- **education-higher**    0.4238      0.01535      27.61    9.812e-167 
-----------------------------------------------------------------------
+ **education-higher**    0.7617     0.07633      9.98     8.891e-23 
+--------------------------------------------------------------------
 
 
----------------------------------------------------------------
- Observations   Residual Std. Error    $R^2$    Adjusted $R^2$ 
--------------- --------------------- --------- ----------------
-    56755              1.258          0.03124      0.03115     
----------------------------------------------------------------
+--------------------------------------------------------------
+ Observations   Residual Std. Error   $R^2$    Adjusted $R^2$ 
+-------------- --------------------- -------- ----------------
+     1558              1.098          0.1456       0.1429     
+--------------------------------------------------------------
 
 Table: Fitting linear model: v80 ~ age + sqrt(age) + sex + education
 
-The coefficient estimate for `sex` is -0.0315131 which means that the effect of a female respondent compared to a male is negative. The corresponding $p$-value is 0.003084 which is smaller than 0.05. Thus, `sex` is significant in the model.
+The coefficient estimate for `sex` is 0.0704828 which means that the effect of a female respondent compared to a male is positive. The corresponding $p$-value is 0.2100359 which is greater than or equal to 0.05. Thus, `sex` is not significant in the model.
 
